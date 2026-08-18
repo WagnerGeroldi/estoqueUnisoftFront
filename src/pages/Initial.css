@@ -1,0 +1,30 @@
+.content-container {
+  display: flex;
+  height: 100vh;
+}
+
+.left-board,
+.right-board {
+  width: 50vw;
+}
+
+@media (max-width: 750px) {
+  .content-container {
+    flex-direction: column;
+    width: 100vw;
+  }
+
+    .right-board {
+    height: 40vh;
+    width: 100vw;
+  }
+
+  .left-board {
+    height: 60vh;
+    width: 100vw;
+  }
+
+  .image-info {
+    display: none;
+  }
+}

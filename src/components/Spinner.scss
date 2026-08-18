@@ -1,0 +1,19 @@
+.spinner {
+  margin: auto;
+  border: 2px solid #ffffff;
+  border-radius: 100%;
+  border-left-color: #ff0000;
+  height: 20px;
+  width: 20px;
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

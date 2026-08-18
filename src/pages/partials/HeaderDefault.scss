@@ -1,0 +1,23 @@
+.header-initial {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: white;
+  padding: 10px;
+
+  .color-c {
+    color: blue;
+  }
+
+  .text {
+    color: rgb(255, 0, 0);
+  }
+}
+
+$medium: 680px;
+
+@media (max-width: $medium) {
+  .header-initial {
+    flex-direction: column;
+  }
+}

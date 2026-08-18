@@ -1,0 +1,47 @@
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  background: gray;
+}
+
+.fa {
+  color: blue;
+  transition: 0.3s;
+
+  &:hover {
+    color: darkblue;
+  }
+}
+
+
+.btn-default-lg {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn-report-lg {
+  display: flex;
+  gap: 20px;
+}
+
+@media(max-width: 600px) {
+  .btn-default {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin: auto;
+  
+  }
+  
+}

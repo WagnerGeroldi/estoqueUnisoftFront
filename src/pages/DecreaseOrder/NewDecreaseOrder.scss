@@ -1,0 +1,13 @@
+.icon-delete {
+  cursor: pointer;
+}
+
+.card-adjust {
+  height: 80vh;
+}
+
+@media (max-width: 650px) {
+  .card-adjust {
+    height: inherit;
+  }
+}
