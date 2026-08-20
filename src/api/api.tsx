@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getUserLocalStorage } from "../state/SaveLocalStorage";
 
-const baseURL = "http://localhost:3333/";
+const baseURL = "https://estoque-unisoft-backend-pied.vercel.app/";
 
 const api = axios.create({
   baseURL: baseURL,
@@ -11,10 +11,10 @@ const api = axios.create({
   },
 });
 
-api.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
-api.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
-api.defaults.headers.put['Access-Control-Allow-Origin'] = '*';
-api.defaults.headers.delete['Access-Control-Allow-Origin'] = '*';
+// api.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+// api.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
+// api.defaults.headers.put['Access-Control-Allow-Origin'] = '*';
+// api.defaults.headers.delete['Access-Control-Allow-Origin'] = '*';
 const user = getUserLocalStorage();
 
 if (user) {
