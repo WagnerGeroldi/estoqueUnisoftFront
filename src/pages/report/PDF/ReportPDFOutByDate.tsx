@@ -1,11 +1,22 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
 import { HandleOnlyDate } from "../../../services/HandleOnlyDate";
 
 export function ReportPDFOutByDate(products: any, initialDate: string, finalDate: string) {
   
-  // (pdfMake as any).vfs = pdfFonts.pdfMake.vfs;
-  pdfMake.vfs = pdfFonts.pdfMake.vfs;
+const fonts: any = pdfFonts;
+
+  const vfs =
+    fonts.pdfMake?.vfs ??
+    fonts.default?.pdfMake?.vfs ??
+    fonts.default?.vfs ??
+    fonts.vfs;
+
+  if (!vfs) {
+    throw new Error("VFS do pdfmake não foi carregado.");
+  }
+
+  pdfMake.vfs = vfs;
 
   function reverseDate(date: any) {
     var splitDate = date.split("");    
