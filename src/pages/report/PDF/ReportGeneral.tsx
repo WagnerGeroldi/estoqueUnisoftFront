@@ -1,11 +1,22 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+
+const fonts: any = pdfFonts;
+
 
 export function ReportGeneral(products: any[]) {
+  pdfMake.vfs = fonts.pdfMake.vfs;
 
-  pdfMake.vfs = pdfFonts.pdfMake.vfs;
-   
+   pdfMake.fonts = {
+    Roboto: {
+      normal: "Roboto-Regular.ttf",
+      bold: "Roboto-Medium.ttf",
+      italics: "Roboto-Italic.ttf",
+      bolditalics: "Roboto-MediumItalic.ttf",
+    },
+  };
 
+  
   // Ordena os produtos alfabeticamente pelo grupo (categoryProduct)
   const sortedProducts = [...products].sort((a, b) => {
     // Compara os grupos em ordem alfabética (considerando maiúsculas/minúsculas e acentos)

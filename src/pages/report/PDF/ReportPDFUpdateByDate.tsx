@@ -1,10 +1,23 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+
+const fonts: any = pdfFonts;
+
+
 import { HandleOnlyDate } from "../../../services/HandleOnlyDate";
 
 export function ReportPDFUpdateByDate(products: any, initialDate: string, finalDate: string) {
   
- pdfMake.vfs = pdfFonts.pdfMake.vfs;
+pdfMake.vfs = fonts.pdfMake.vfs;
+
+   pdfMake.fonts = {
+    Roboto: {
+      normal: "Roboto-Regular.ttf",
+      bold: "Roboto-Medium.ttf",
+      italics: "Roboto-Italic.ttf",
+      bolditalics: "Roboto-MediumItalic.ttf",
+    },
+  };
 
   function reverseDate(date: any) {
     var splitDate = date.split("");    
