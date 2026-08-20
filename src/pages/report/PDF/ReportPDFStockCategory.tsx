@@ -1,22 +1,10 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 
 
 export function ReportPDFStockCategory(products: any, category: string) {
   
- const fonts: any = pdfFonts;
- 
-   const vfs =
-     fonts.pdfMake?.vfs ??
-     fonts.default?.pdfMake?.vfs ??
-     fonts.default?.vfs ??
-     fonts.vfs;
- 
-   if (!vfs) {
-     throw new Error("VFS do pdfmake não foi carregado.");
-   }
- 
-   pdfMake.vfs = vfs;
+ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
   const pdfTitle = [
     {
