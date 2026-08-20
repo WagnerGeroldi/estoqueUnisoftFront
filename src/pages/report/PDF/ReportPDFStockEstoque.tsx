@@ -1,6 +1,5 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
-
+import pdfFonts from "pdfmake/build/vfs_fonts";
 export function ReportPDFStockEstoque(products: any, category: string) {
   
   pdfMake.vfs = pdfFonts.pdfMake.vfs;

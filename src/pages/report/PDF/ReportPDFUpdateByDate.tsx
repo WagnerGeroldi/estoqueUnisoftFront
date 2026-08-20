@@ -1,5 +1,5 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 import { HandleOnlyDate } from "../../../services/HandleOnlyDate";
 
 export function ReportPDFUpdateByDate(products: any, initialDate: string, finalDate: string) {
