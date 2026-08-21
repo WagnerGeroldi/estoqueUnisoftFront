@@ -1,5 +1,6 @@
 /*imports react */
 import { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
 /*imports libs */
 import { ToastContainer, toast } from "react-toastify";
@@ -147,10 +148,9 @@ export function CertificadosEntregues(this: any) {
               <strong>{`Total de Certificados: ${countCertificados}`}</strong>
             </div>
             <div>
-              <a href="/certificadosNaoEntregues">
-
-              <button className="btn btn-danger" > Certificados não Entregues</button>
-              </a>
+              <Link to="/certificateList" className="btn btn-success">
+                  Certificados Entregues
+                </Link>
             </div>
           </div>
           <div className="info-user">
