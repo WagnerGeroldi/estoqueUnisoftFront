@@ -1,14 +1,15 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import pdfVfsRaw from "../../../assets/pdf-vfs.json";
+
+const pdfVfs: any = pdfVfsRaw;
 import { HandleOnlyDate } from "../../../services/HandleOnlyDate";
 
-const fonts: any = pdfFonts;
 
 export function ReportPDFOutByDate(products: any, initialDate: string, finalDate: string) {
   
-pdfMake.vfs = fonts.pdfMake.vfs;
+pdfMake.vfs = pdfVfs.pdfMake.vfs;
 
-   pdfMake.fonts = {
+  pdfMake.fonts = {
     Roboto: {
       normal: "Roboto-Regular.ttf",
       bold: "Roboto-Medium.ttf",

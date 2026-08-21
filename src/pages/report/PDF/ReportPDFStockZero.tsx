@@ -1,12 +1,12 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import pdfVfsRaw from "../../../assets/pdf-vfs.json";
 
-const fonts: any = pdfFonts;
+const pdfVfs: any = pdfVfsRaw;
 
 export function ReportPDFStockZero(products: any) {
- pdfMake.vfs = fonts.pdfMake.vfs;
+ pdfMake.vfs = pdfVfs.pdfMake.vfs;
  
-    pdfMake.fonts = {
+   pdfMake.fonts = {
      Roboto: {
        normal: "Roboto-Regular.ttf",
        bold: "Roboto-Medium.ttf",
@@ -14,7 +14,6 @@ export function ReportPDFStockZero(products: any) {
        bolditalics: "Roboto-MediumItalic.ttf",
      },
    };
-
   const pdfTitle = [
     {
       text: "Relatório De Estoque Zerado",

@@ -1,13 +1,13 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import pdfVfsRaw from "../../../assets/pdf-vfs.json";
 
-const fonts: any = pdfFonts;
+const pdfVfs: any = pdfVfsRaw;
 
 export function ReportPDFStockCategory(products: any, category: string) {
   
-pdfMake.vfs = fonts.pdfMake.vfs;
+pdfMake.vfs = pdfVfs.pdfMake.vfs;
 
-   pdfMake.fonts = {
+  pdfMake.fonts = {
     Roboto: {
       normal: "Roboto-Regular.ttf",
       bold: "Roboto-Medium.ttf",
