@@ -7,16 +7,6 @@ export default defineConfig({
   server: {
     host: true,
   },
-
-  build: {
-  commonjsOptions: {
-    transformMixedEsModules: true,
-    include: [/pdfmake/, /node_modules/],
-  },
-},
-optimizeDeps: {
-  include: ["pdfmake/build/pdfmake", "pdfmake/build/vfs_fonts"],
-},
 });
 
 

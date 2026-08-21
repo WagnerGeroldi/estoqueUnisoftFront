@@ -1,22 +1,17 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFontsModule from "pdfmake/build/vfs_fonts";
-
-const pdfFonts: any = pdfFontsModule;
-
+import pdfVfs from "../../../assets/pdf-vfs.json"; // ajuste o caminho relativo
 
 export function ReportGeneral(products: any[]) {
-  const vfs =
-  pdfFonts.vfs ||
-  pdfFonts.pdfMake?.vfs ||
-  pdfFonts.default?.vfs ||
-  pdfFonts.default?.pdfMake?.vfs;
+  pdfMake.vfs = pdfVfs as any;
 
-if (!vfs) {
-  console.error("Não foi possível localizar o VFS do pdfmake. Estrutura recebida:", pdfFonts);
-}
-
-pdfMake.vfs = vfs;
-
+  pdfMake.fonts = {
+    Roboto: {
+      normal: "Roboto-Regular.ttf",
+      bold: "Roboto-Medium.ttf",
+      italics: "Roboto-Italic.ttf",
+      bolditalics: "Roboto-MediumItalic.ttf",
+    },
+  };
   
   // Ordena os produtos alfabeticamente pelo grupo (categoryProduct)
   const sortedProducts = [...products].sort((a, b) => {
