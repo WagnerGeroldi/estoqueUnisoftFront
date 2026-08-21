@@ -77,6 +77,6 @@ export function ReportGeneral(products: any[]) {
     header: [pdfTitle],
     content: [dataInfo],
   };
-  
+  console.log("Chaves no vfs:", Object.keys(pdfMake.vfs || {}));
   pdfMake.createPdf(docDefinition).download("Relatório_Geral");
 }
