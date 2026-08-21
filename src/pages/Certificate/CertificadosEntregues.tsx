@@ -149,7 +149,7 @@ export function CertificadosEntregues(this: any) {
             </div>
             <div>
               <Link to="/certificateList" className="btn btn-success">
-                  Certificados Entregues
+                  Certificados Não Entregues
                 </Link>
             </div>
           </div>

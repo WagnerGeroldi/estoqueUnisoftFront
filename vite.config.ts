@@ -9,8 +9,14 @@ export default defineConfig({
   },
 
   build: {
-    commonjsOptions: {
-      transformMixedEsModules: true,
-    },
+  commonjsOptions: {
+    transformMixedEsModules: true,
+    include: [/pdfmake/, /node_modules/],
   },
+},
+optimizeDeps: {
+  include: ["pdfmake/build/pdfmake", "pdfmake/build/vfs_fonts"],
+},
 });
+
+
