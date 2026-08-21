@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getUserLocalStorage } from "../state/SaveLocalStorage";
 
-const baseURL = "https://estoque-unisoft-backend-pied.vercel.app/";
+// const baseURL = "https://estoque-unisoft-backend-pied.vercel.app/";
+const baseURL = "http://localhost:3333/";
 
 const api = axios.create({
   baseURL: baseURL,

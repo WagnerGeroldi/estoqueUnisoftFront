@@ -29,6 +29,9 @@ import { ReportOutOfStock } from "./pages/report/ReportOutOfStock";
 import { ReportUpdateOfStock } from "./pages/report/ReportUpdateOfStock";
 import { ReportStockZero } from "./pages/report/ReportStockZero";
 import { ReportStockEstoque } from "./pages/report/ReportStockEstoque";
+import { CertificateList } from "./pages/Certificate/CertificateList";
+import { CertificadosEntregues } from "./pages/Certificate/CertificadosEntregues";
+import { RegisterCertificate } from "./pages/Certificate/RegisterCertificate";
 
 function App() {
   return (
@@ -88,6 +91,10 @@ function App() {
         />
 
         <Route path="/products/updateStock/:id" element={<UpdateStock />} />
+        <Route path="/certificateList" element={<CertificateList />} />
+        <Route path="/certificadosEntregues" element={<CertificadosEntregues />} />
+        <Route path="/cadastrarCertificado" element={<RegisterCertificate />} />
+        
       </Routes>
     </BrowserRouter>
   );

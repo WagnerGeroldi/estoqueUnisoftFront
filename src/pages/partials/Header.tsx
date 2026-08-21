@@ -23,6 +23,7 @@ import LocalPrintshopIcon from "@mui/icons-material/LocalPrintshop";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 /*imports IMAGENS */
 // import logo from "../../assets/images/logo-mini.svg";
@@ -111,6 +112,15 @@ export function Header(this: any) {
               <ArrowDropDownCircleIcon />
             </ListItemIcon>
             <ListItemText>Baixar produtos</ListItemText>
+          </ListItem>
+          <ListItem
+            button
+            onClick={() => handleMenuClick(`/certificateList`)}
+          >
+            <ListItemIcon>
+              <WorkspacePremiumIcon />
+            </ListItemIcon>
+            <ListItemText>Certificados Alunos</ListItemText>
           </ListItem>
           <ListItem
             button
