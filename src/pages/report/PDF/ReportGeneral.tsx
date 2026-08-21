@@ -1,8 +1,10 @@
 import pdfMake from "pdfmake/build/pdfmake";
-import pdfVfs from "../../../assets/pdf-vfs.json"; // ajuste o caminho relativo
+import pdfVfsRaw from "../../../assets/pdf-vfs.json";
+
+const pdfVfs: any = pdfVfsRaw;
 
 export function ReportGeneral(products: any[]) {
-  pdfMake.vfs = pdfVfs as any;
+  pdfMake.vfs = pdfVfs.pdfMake.vfs;
 
   pdfMake.fonts = {
     Roboto: {
