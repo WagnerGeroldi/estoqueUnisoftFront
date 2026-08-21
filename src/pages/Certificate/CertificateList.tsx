@@ -1,6 +1,7 @@
 /*imports react */
 import { useEffect, useMemo, useState } from "react";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
+import { Link } from "react-router-dom";
 
 /*imports libs */
 import { ToastContainer, toast } from "react-toastify";
@@ -179,22 +180,15 @@ export function CertificateList(this: any) {
               <strong>{`Total de Certificados: ${countCertificados}`}</strong>
             </div>
             <div className="d-flex flex-wrap gap-2">
-              <div>
-                <a href="/certificadosEntregues">
-                  <button className="btn btn-success">
-                    {" "}
-                    Certificados Entregues
-                  </button>
-                </a>
-              </div>
-              <div>
-                <a href="/cadastrarCertificado">
-                  <button className="btn btn-info">
-                    {" "}
-                    Cadastrar Certificado
-                  </button>
-                </a>
-              </div>
+              <div className="d-flex flex-wrap gap-2">
+  <Link to="/certificadosEntregues" className="btn btn-success">
+    Certificados Entregues
+  </Link>
+
+  <Link to="/cadastrarCertificado" className="btn btn-info">
+    Cadastrar Certificado
+  </Link>
+</div>
             </div>
           </div>
           <div className="info-user">

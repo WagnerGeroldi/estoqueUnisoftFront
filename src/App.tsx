@@ -93,7 +93,7 @@ function App() {
         <Route path="/products/updateStock/:id" element={<UpdateStock />} />
         <Route path="/certificateList" element={<CertificateList />} />
         <Route path="/certificadosEntregues" element={<CertificadosEntregues />} />
-        <Route path="/cadastrarCertificado" element={<CertificadosEntregues />} />
+        <Route path="/cadastrarCertificado" element={<RegisterCertificate />} />
         
       </Routes>
     </BrowserRouter>
