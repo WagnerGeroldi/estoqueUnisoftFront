@@ -1,5 +1,6 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfVfsRaw from "../../../assets/pdf-vfs.json";
+import {base64Image} from "../image"
 
 const pdfVfs: any = pdfVfsRaw;
 
@@ -19,11 +20,10 @@ pdfMake.vfs = pdfVfs.pdfMake.vfs;
 
   const pdfTitle = [
     {
-      text: `Relatório de Estoque Uni ${category}`,
-      fontSize: 16,
-      bold: true,
+      image: base64Image,
       alignment: "center",
-      margin: [20, 20, 20, 20]
+      width: 500,
+      margin: [10, 10, 10, 10],
     },
   ];
 
@@ -58,23 +58,14 @@ pdfMake.vfs = pdfVfs.pdfMake.vfs;
     },
   ];
 
-  const footerInfo = [
-    {
-      text: "Unisoft Informática",
-      fontSize: 12,
-      bold: true,
-      alignment: "center",
-      margin: [20, 20, 20, 20],
-    },
-  ];
 
   const docDefinition: any = {
     pageSize: "A4",
-    pageMargins: [40, 40, 40, 40],
+    pageMargins: [20, 70, 20, 40],
 
     header: [pdfTitle],
     content: [dataInfo],
-    footer: [footerInfo],
+
   };
   pdfMake.createPdf(docDefinition).download(`Relatório de Estoque Uni ${category}`);
 }

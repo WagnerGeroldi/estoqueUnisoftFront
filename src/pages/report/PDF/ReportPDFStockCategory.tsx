@@ -1,4 +1,5 @@
 import pdfMake from "pdfmake/build/pdfmake";
+import {base64Image} from "../image"
 import pdfVfsRaw from "../../../assets/pdf-vfs.json";
 
 const pdfVfs: any = pdfVfsRaw;
@@ -16,13 +17,12 @@ pdfMake.vfs = pdfVfs.pdfMake.vfs;
     },
   };
 
-  const pdfTitle = [
+ const pdfTitle = [
     {
-      text: `Relatório da Categoria: ${category}`,
-      fontSize: 16,
-      bold: true,
+      image: base64Image,
       alignment: "center",
-      margin: [20, 20, 20, 20]
+      width: 500,
+      margin: [10, 10, 10, 10],
     },
   ];
 
@@ -59,23 +59,14 @@ pdfMake.vfs = pdfVfs.pdfMake.vfs;
     },
   ];
 
-  const footerInfo = [
-    {
-      text: "Unisoft Informática",
-      fontSize: 12,
-      bold: true,
-      alignment: "center",
-      margin: [20, 20, 20, 20],
-    },
-  ];
+ 
 
   const docDefinition: any = {
     pageSize: "A4",
-    pageMargins: [40, 40, 40, 40],
+    pageMargins: [20, 70, 20, 40],
 
     header: [pdfTitle],
     content: [dataInfo],
-    footer: [footerInfo],
   };
   pdfMake.createPdf(docDefinition).download(`Relatório da categoria ${category}`);
 }

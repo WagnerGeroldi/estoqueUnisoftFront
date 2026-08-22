@@ -1,5 +1,6 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfVfsRaw from "../../../assets/pdf-vfs.json";
+import {base64Image} from "../image"
 
 const pdfVfs: any = pdfVfsRaw;
 
@@ -30,10 +31,9 @@ pdfMake.vfs = pdfVfs.pdfMake.vfs;
 
   const pdfTitle = [
     {
-      text: `Relatório de Atualização de ${reverseDate(initialDate)} até ${reverseDate(finalDate)} `,
-      fontSize: 16,
-      bold: true,
+      image: base64Image,
       alignment: "center",
+      width: 500,
       margin: [10, 10, 10, 10],
     },
   ];
@@ -73,23 +73,13 @@ pdfMake.vfs = pdfVfs.pdfMake.vfs;
     },
   ];
 
-  const footerInfo = [
-    {
-      text: "Unisoft Informática",
-      fontSize: 12,
-      bold: true,
-      alignment: "center",
-      margin: [10, 10, 10, 10],
-    },
-  ];
 
   const docDefinition: any = {
     pageSize: "A4",
-    pageMargins: [20, 40, 20, 40],
+   pageMargins: [20, 70, 20, 40],
 
     header: [pdfTitle],
     content: [dataInfo],
-    footer: [footerInfo],
   };
   pdfMake.createPdf(docDefinition).download(`Relatório de Entrada ${reverseDate(initialDate)} até ${reverseDate(finalDate)} `);
 }
