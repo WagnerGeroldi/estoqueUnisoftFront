@@ -53,7 +53,7 @@ const validationRegistrerUser = yup.object().shape({
   estoque: yup.string().required("O Estoque é obrigatório"),
   fornecedor: yup.string(),
   quantity: yup.string().required("A quantidade é obrigatória"),
-  category: yup.string().required("A categoria é obrigatória"),
+  category: yup.string().required("O grupo é obrigatório"),
 });
 
 export function UpdateProduct() {

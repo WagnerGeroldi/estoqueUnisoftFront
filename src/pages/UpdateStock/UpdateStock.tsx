@@ -346,7 +346,7 @@ export function UpdateStock() {
                 <tr>
                   <td scope="col">Produto</td>
                   <td scope="col">Quantidade</td>
-                  <td scope="col">Categoria</td>
+                  <td scope="col">Grupo</td>
                   <td scope="col">Excluir</td>
                 </tr>
               </thead>

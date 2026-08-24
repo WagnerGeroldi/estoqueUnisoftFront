@@ -37,10 +37,8 @@ export function ReportPage() {
   const [values, setValues] = useState([] as any);
   const [category, setCategory] = useState("");
   const [estoque, setEstoque] = useState("");
-  const [initialDate, setInitialDate] = useState("");
-  const [finalDate, setFinalDate] = useState("");
-  const [initialDateUpdate, setInitialDateUpdate] = useState("");
-  const [finalDateUpdate, setFinalDateUpdate] = useState("");
+  const [fornecedores, setFornecedores] = useState([] as any);
+  const [fornecedor, setFornecedor] = useState("");
 
   function handleChange(event: { target: { value: React.SetStateAction<string>; }; }) {
     setCategory(event.target.value);
@@ -49,20 +47,12 @@ export function ReportPage() {
   function handleChangeEstoque(event: { target: { value: React.SetStateAction<string>; }; }) {
     setEstoque(event.target.value);
   }
-  
-  function handleChangeInitialDate(event: { target: { value: React.SetStateAction<string>; }; }) {
-    setInitialDate(event.target.value);
-  }
-  function handleChangeFinalDate(event: { target: { value: React.SetStateAction<string>; }; }) {
-    setFinalDate(event.target.value);
+
+  function handleChangeFornecedor(event: { target: { value: React.SetStateAction<string>; }; }) {
+    setFornecedor(event.target.value);
   }
 
-  function handleChangeInitialDateUpdate(event: { target: { value: React.SetStateAction<string>; }; }) {
-    setInitialDateUpdate(event.target.value);
-  }
-  function handleChangeFinalDateUpdate(event: { target: { value: React.SetStateAction<string>; }; }) {
-    setFinalDateUpdate(event.target.value);
-  }
+
 
   /*Consultas BACKEND */
 
@@ -75,7 +65,7 @@ export function ReportPage() {
       })
       .then((res) => {
         setValues(res.data);
-        
+
       })
       .catch((err) => {
         switch (err.response.status) {
@@ -93,8 +83,34 @@ export function ReportPage() {
       });
   }, []);
 
-  
-  
+  useEffect(() => {
+    api
+      .get(`/products/fornecedores/${id}`, {
+        headers: {
+          "x-access-token": token,
+        },
+      })
+      .then((res) => {
+        setFornecedores(res.data); // agora vai pra state certa
+      })
+      .catch((err) => {
+        switch (err.response.status) {
+          case 401:
+            toast.error(
+              err.response.data.message + "\n Redirecionando para login..."
+            );
+            setTimeout(() => {
+              navigate("/login");
+            }, 4000);
+            break;
+          default:
+            toast.error(err.response.data.message);
+        }
+      });
+  }, []);
+
+
+
 
   useEffect(() => {
     api
@@ -178,30 +194,30 @@ export function ReportPage() {
                 <hr />
                 <h6>
                   <strong>
-                    Relatório por categoria <br />
+                    Relatório por Grupo <br />
                   </strong>
                 </h6>
 
                 <TextField
-  id="category"
-  label="Categoria"
-  size="small"
-  fullWidth
-  variant="outlined"
-  onChange={handleChange}
-  value={category} // Adicionado explicitamente para controlar o valor
-  select
-  InputLabelProps={{
-    shrink: true,
-  }}
->
-  {Array.isArray(values) &&
-    values.map((item: any) => (
-      <MenuItem key={item.id} value={item.name}>
-        {item.name}
-      </MenuItem>
-    ))}
-</TextField>
+                  id="category"
+                  label="Grupo"
+                  size="small"
+                  fullWidth
+                  variant="outlined"
+                  onChange={handleChange}
+                  value={category} // Adicionado explicitamente para controlar o valor
+                  select
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                >
+                  {Array.isArray(values) &&
+                    values.map((item: any) => (
+                      <MenuItem key={item.id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                </TextField>
 
                 <Stack
                   spacing={2}
@@ -227,7 +243,63 @@ export function ReportPage() {
                       color="error"
                       className="btn-default"
                     >
-                      Escolha a categoria...
+                      Escolha o Grupo...
+                    </Button>
+                  )}
+                </Stack>
+                <hr />
+                <h6>
+                  <strong>
+                    Relatório por Fornecedor <br />
+                  </strong>
+                </h6>
+
+                <TextField
+                  id="fornecedor"
+                  label="Fornecedor"
+                  size="small"
+                  fullWidth
+                  variant="outlined"
+                  onChange={handleChangeFornecedor}
+                  value={fornecedor}
+                  select
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                >
+                  {Array.isArray(fornecedores) &&
+                    fornecedores.map((item: any, index: number) => (
+                      <MenuItem key={index} value={item.fornecedor}>
+                        {item.fornecedor}
+                      </MenuItem>
+                    ))}
+                </TextField>
+
+                <Stack
+                  spacing={2}
+                  marginTop={2}
+                  direction="row"
+                  justifyContent="left"
+                >
+                  {fornecedor !== "" ? (
+                    <Link
+                      to={`/reportStockFornecedor/${id}/?fornecedor=${fornecedor}`}
+                    >
+                      <Button
+                        variant="contained"
+                        color="success"
+                        className="btn-default"
+                      >
+                        Visualizar na tela
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color="error"
+                      className="btn-default"
+                    >
+                      Escolha o Fornecedor...
                     </Button>
                   )}
                 </Stack>
@@ -250,11 +322,11 @@ export function ReportPage() {
                   }}
                 >
                   <MenuItem key={"CTT"} value={"CTT"}>
-                      CTT
-                    </MenuItem>
-                    <MenuItem key={"BRM"} value={"BRM"}>
-                      BRM
-                    </MenuItem>
+                    CTT
+                  </MenuItem>
+                  <MenuItem key={"BRM"} value={"BRM"}>
+                    BRM
+                  </MenuItem>
                 </TextField>
 
                 <Stack
@@ -284,161 +356,8 @@ export function ReportPage() {
                       Escolha o Estoque...
                     </Button>
                   )}
-                </Stack>  
-                <hr />
-                <h6 className="mt-4">
-                  <strong>
-                    Relatório de produtos Baixados <br />
-                  </strong>
-                </h6>
-                <form
-                  action={`/reportOutOfStock/?id=${id}&initialDate=${initialDate}&finalDate=${finalDate}`}
-                >
-                  <div className="d-flex gap-4 flex-column">
-                    <TextField
-                      id="dateInit"
-                      label="Data Inicial"
-                      size="small"
-                      type="date"
-                      fullWidth
-                      required
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      variant="outlined"
-                      onChange={handleChangeInitialDate}
-                    />
-                    <TextField
-                      id="dateInit"
-                      label="Data Final"
-                      size="small"
-                      type="date"
-                      required
-                      fullWidth
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      variant="outlined"
-                      onChange={handleChangeFinalDate}
-                    />
-                  </div>
-                  <Stack
-                    spacing={2}
-                    marginTop={2}
-                    direction="row"
-                    justifyContent="left"
-                  >
-                    {initialDate !== "" && finalDate !== "" ? (
-                      new Date(finalDate) >= new Date(initialDate) ? (
-                        <Link
-                          to={`/reportOutOfStock/?id=${id}&initialDate=${initialDate}&finalDate=${finalDate}`}
-                        >
-                          <Button
-                            variant="contained"
-                            color="success"
-                            className="btn-default"
-                          >
-                            Visualizar na tela
-                          </Button>
-                        </Link>
-                      ) : (
-                        <Button
-                          variant="contained"
-                          color="error"
-                          className="btn-default"
-                        >
-                          Datas invertidas
-                        </Button>
-                      )
-                    ) : (
-                      <Button
-                        variant="contained"
-                        color="error"
-                        className="btn-default"
-                      >
-                        Escolha as datas...
-                      </Button>
-                    )}
-                  </Stack>
-                </form>
+                </Stack>
 
-                <hr />
-                <h6 className="mt-4">
-                  <strong>
-                    Relatório de produtos Atualizados <br />
-                  </strong>
-                </h6>
-                <form
-                  action={`/reportUpdateOfStock/?id=${id}&initialDate=${initialDateUpdate}&finalDate=${finalDateUpdate}`}
-                >
-                  <div className="d-flex gap-4 flex-column">
-                    <TextField
-                      id="dateInit"
-                      label="Data Inicial"
-                      size="small"
-                      type="date"
-                      fullWidth
-                      required
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      variant="outlined"
-                      onChange={handleChangeInitialDateUpdate}
-                    />
-                    <TextField
-                      id="dateInit"
-                      label="Data Final"
-                      size="small"
-                      type="date"
-                      required
-                      fullWidth
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
-                      variant="outlined"
-                      onChange={handleChangeFinalDateUpdate}
-                    />
-                  </div>
-                  <Stack
-                    spacing={2}
-                    marginTop={2}
-                    direction="row"
-                    justifyContent="left"
-                  >
-                    {initialDateUpdate !== "" && finalDateUpdate !== "" ? (
-                      new Date(finalDateUpdate) >=
-                      new Date(initialDateUpdate) ? (
-                        <Link
-                          to={`/reportUpdateOfStock/?id=${id}&initialDate=${initialDateUpdate}&finalDate=${finalDateUpdate}`}
-                        >
-                          <Button
-                            variant="contained"
-                            color="success"
-                            className="btn-default"
-                          >
-                            Visualizar na tela
-                          </Button>
-                        </Link>
-                      ) : (
-                        <Button
-                          variant="contained"
-                          color="error"
-                          className="btn-default"
-                        >
-                          Datas invertidas
-                        </Button>
-                      )
-                    ) : (
-                      <Button
-                        variant="contained"
-                        color="error"
-                        className="btn-default"
-                      >
-                        Escolha as datas...
-                      </Button>
-                    )}
-                  </Stack>
-                </form>
               </Grid>
             </Grid>
           </CardContent>

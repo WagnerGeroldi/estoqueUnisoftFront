@@ -32,6 +32,7 @@ import { ReportStockEstoque } from "./pages/report/ReportStockEstoque";
 import { CertificateList } from "./pages/Certificate/CertificateList";
 import { CertificadosEntregues } from "./pages/Certificate/CertificadosEntregues";
 import { RegisterCertificate } from "./pages/Certificate/RegisterCertificate";
+import { ReportStockFornecedor } from "./pages/report/ReportStockFornecedor";
 
 function App() {
   return (
@@ -76,6 +77,12 @@ function App() {
           path="/reportStockCategory/:id"
           element={<ReportStockCategory />}
         />
+        <Route
+          path="/reportStockFornecedor/:id"
+          element={<ReportStockFornecedor />}
+        />
+
+
         <Route
           path="/reportStockEstoque/:estoque"
           element={<ReportStockEstoque />}

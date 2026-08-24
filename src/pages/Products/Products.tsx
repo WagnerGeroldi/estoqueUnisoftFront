@@ -189,9 +189,10 @@ export function Products(this: any) {
       name: "Nome",
       selector: (row: any) => row.name,
       sortable: true,
+      width: "300px"
     },
     {
-      name: "Categoria",
+      name: "Grupo",
       selector: (row: any) => `${row.categoryProduct}`,
       sortable: true,
     },
@@ -216,18 +217,19 @@ export function Products(this: any) {
       sortable: true,
     },
     {
+      name: "Ações",
       cell: (row: any) => (
         <IconButton
-          aria-label="update"
-          size="large"
-          onClick={updateProduct.bind(this, row.id)}
+        aria-label="update"
+        size="large"
+        onClick={updateProduct.bind(this, row.id)}
         >
           <EditIcon />
         </IconButton>
       ),
       allowOverflow: true,
       button: true,
-      width: "56px",
+      width: "40px",
     },
     {
       cell: (row: any) => (

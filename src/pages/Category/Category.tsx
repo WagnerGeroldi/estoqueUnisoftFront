@@ -17,7 +17,17 @@ import "react-toastify/dist/ReactToastify.css";
 
 /*imports MUI */
 import Paper from "@mui/material/Paper";
-import { Button, IconButton } from "@mui/material";
+import {
+  Button,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  List,
+  ListItem,
+  ListItemText,
+  CircularProgress,
+} from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import AddIcon from "@mui/icons-material/Add";
@@ -58,6 +68,44 @@ export function Category(this: any) {
     setIdProduct(id);
     setOpen(true);
   };
+
+  /* ---- modal com produtos do grupo ---- */
+  const [openProductsModal, setOpenProductsModal] = useState(false);
+  const [groupSelecionado, setGroupSelecionado] = useState<any>(null);
+  const [produtosDoGrupo, setProdutosDoGrupo] = useState<any[]>([]);
+  const [loadingProdutos, setLoadingProdutos] = useState(false);
+
+  function handleOpenProductsModal(group: any) {
+    setGroupSelecionado(group);
+    setOpenProductsModal(true);
+    setLoadingProdutos(true);
+
+
+    api
+      .get(`/products/findByCategory/${id}/?category=${group.name}`, {
+        headers: {
+          "x-access-token": token,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+
+        setProdutosDoGrupo(res.data);
+      })
+      .catch((err) => {
+        toast.error("Erro ao buscar produtos deste grupo");
+      })
+      .finally(() => {
+        setLoadingProdutos(false);
+      });
+  }
+
+  function handleCloseProductsModal() {
+    setOpenProductsModal(false);
+    setProdutosDoGrupo([]);
+    setGroupSelecionado(null);
+  }
+  /* ---- fim modal produtos do grupo ---- */
 
   /*Consultas BACKEND */
   useEffect(() => {
@@ -155,20 +203,28 @@ export function Category(this: any) {
 
   const columns = [
     {
-      name: "Nome",
+      name: "Nome do grupo",
       selector: (row: any) => row.name,
       sortable: true,
+      cell: (row: any) => (
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => handleOpenProductsModal(row)}
+        >
+          {row.name}
+        </span>
+      ),
     },
     {
-      name: "Cadastro",
+      name: "Data do cadastro",
       selector: (row: any) => HandleOnlyDate(new Date(row.createdAt)),
       sortable: true,
     },
     {
-      name: "Atualização",
+      name: "Última atualização",
       selector: (row: any) => HandleOnlyDate(new Date(row.updatedAt)),
       sortable: true,
-    },    
+    },
     {
       cell: (row: any) => (
         <IconButton
@@ -201,7 +257,7 @@ export function Category(this: any) {
 
   return (
     <>
-      <Head title="Rede Unisoft - Categorias" />
+      <Head title="Rede Unisoft - Grupos" />
       <Header />
       <ToastContainer />
       <div className="p-3">
@@ -216,11 +272,11 @@ export function Category(this: any) {
         >
           <Link to={`/category/createCategory/${id}`}>
             <Button variant="contained" color="success" startIcon={<AddIcon />}>
-              Cadastrar Categoria
+              Cadastrar Grupo
             </Button>
           </Link>
           <div className="info-user">
-            <h1> Categorias </h1>
+            <h1> Grupos </h1>
           </div>
 
           {loading === true ? (
@@ -241,11 +297,43 @@ export function Category(this: any) {
       </div>
       <ModalConfirm
         action={deleteCategory.bind(this, idProduct)}
-        title="Deseja excluir esta categoria?"
+        title="Deseja excluir este grupo?"
         setOpen={open}
         setClose={handleClose}
         infoOne="Excluir"
       />
+
+      <Dialog
+        open={openProductsModal}
+        onClose={handleCloseProductsModal}
+        fullWidth
+        maxWidth="sm"
+      >
+        <DialogTitle>
+          Produtos do grupo: {groupSelecionado?.name}
+        </DialogTitle>
+        <DialogContent>
+          {loadingProdutos ? (
+            <CircularProgress />
+          ) : produtosDoGrupo.length === 0 ? (
+            <p>Nenhum produto encontrado neste grupo.</p>
+          ) : (
+            <List>
+              {produtosDoGrupo.map((produto: any) => (
+                <ListItem key={produto.id}>
+                  <ListItemText
+                    primary={produto.name}
+                    secondary={<>
+                      Estoque: {produto.estoque} <br />
+                      Quantidade: {produto.quantity}
+                    </>}
+                  />
+                </ListItem>
+              ))}
+            </List>
+          )}
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

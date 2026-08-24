@@ -125,7 +125,7 @@ export function UpdateCategory() {
 
   return (
     <>
-      <Head title="Rede Unisoft - Atualizar Categoria" />
+      <Head title="Rede Unisoft - Atualizar Grupo" />
       <Header />
       <div className="container-fluid mt-4 mx-auto d-flex justify-content-center">
         <Card sx={{ maxWidth: 875 }}>
@@ -133,11 +133,11 @@ export function UpdateCategory() {
           <CardContent>
             <Typography sx={{ fontSize: 20 }} color="text.primary" gutterBottom>
               <i className="fa fa-wrench fa-2x" aria-hidden="true"></i>{" "}
-              Atualizar Categoria
+              Atualizar Grupo
             </Typography>
             <br />
             <div className="d-flex justify-content-between align-items-center p-2 gap-5">
-              <p>Atualize os dados da Categoria!</p>
+              <p>Atualize os dados do Grupo!</p>
               <p>
                 Data do cadastro:{" "}
                 <strong>

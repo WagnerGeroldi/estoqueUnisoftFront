@@ -369,7 +369,7 @@ export function NewDecreaseOrder() {
                 <tr>
                   <td scope="col">Produto</td>
                   <td scope="col">Quantidade</td>
-                  <td scope="col">Categoria</td>
+                  <td scope="col">Grupo</td>
                   <td scope="col">Excluir</td>
                 </tr>
               </thead>
@@ -486,7 +486,7 @@ else {
   <tr>
     <td>Produto</td>
     <td>Quantidade</td>
-    <td>Categoria</td>
+    <td>Grupo</td>
     <td>Excluir</td>
   </tr>
   {produtosdobanco.map((item: any) => (
@@ -508,7 +508,7 @@ null
   <tr>
     <td>Produto</td>
     <td>Quantidade</td>
-    <td>Categoria</td>
+    <td>Grupo</td>
     <td>Excluir</td>
   </tr>
   {produtosdobanco.map((item: any) => (

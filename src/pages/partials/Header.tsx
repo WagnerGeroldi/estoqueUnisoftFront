@@ -101,7 +101,7 @@ export function Header(this: any) {
             <ListItemIcon>
               <BookmarksIcon />
             </ListItemIcon>
-            <ListItemText>Categorias</ListItemText>
+            <ListItemText>Grupos</ListItemText>
           </ListItem>
 
           <ListItem

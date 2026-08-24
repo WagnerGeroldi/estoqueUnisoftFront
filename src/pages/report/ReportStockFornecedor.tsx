@@ -1,0 +1,111 @@
+/*imports react */
+import { useParams, useSearchParams } from "react-router-dom";
+
+/*imports extras */
+import { Header } from "../partials/Header";
+import { HandleOnlyDate } from "../../services/HandleOnlyDate";
+import { Head } from "../partials/Head";
+
+/*imports styles CSS */
+import "./ReportTotalStock.scss";
+import "react-toastify/dist/ReactToastify.css";
+
+/*imports MUI */
+import Paper from "@mui/material/Paper";
+import { Button, Grid } from "@mui/material";
+import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import { api } from "../../api/api";
+import { ReportPDFStockFornecedor } from "./PDF/ReportPDFStockFornecedor";
+import { getTokenLocalStorage } from "../../state/SaveLocalStorage";
+
+export function ReportStockFornecedor() {
+  const [productsFornecedor, setProductsFornecedor] = useState([] as any);
+  const { id } = useParams() as { id: string };
+  const [searchParams] = useSearchParams();
+  const token = getTokenLocalStorage();
+
+  
+  
+  const fornecedor: any = searchParams.get("fornecedor");
+  console.log(fornecedor);
+  
+  useEffect(() => {
+    api
+      .get(`/products/findByFornecedores/${id}/?fornecedor=${fornecedor}`, {
+        headers: {
+          "x-access-token": token,
+        },
+      })
+      .then((res) => {
+        setProductsFornecedor(res.data);
+        console.log(res.data);
+        
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
+  }, []);
+
+  return (
+    <>
+      <Head title="Rede Unisoft - Relatório de Fornecedores" />
+      <Header />
+      <ToastContainer />
+      <div className="p-3">
+        <Paper
+          sx={{
+            p: 2,
+            margin: "auto",
+            maxWidth: 1100,
+            flexGrow: 1,
+            marginTop: 3,
+          }}
+        >
+          <Button
+            onClick={(e) => ReportPDFStockFornecedor(productsFornecedor, fornecedor)}
+            variant="contained"
+            color="primary"
+          >
+            Gerar PDF
+          </Button>
+          <Link to={`/report/${id}`}>
+            <Button>Voltar</Button>
+          </Link>
+          <div className="info-user">
+            <h2>{`Relatório de Fornecedor: ${searchParams.get("fornecedor")}`}</h2>
+          </div>
+          <Grid container spacing={2} className="div-table">
+            <Grid item xs={12}>
+              {productsFornecedor.length === 0 ? (
+                "Não existem produtos nesta categoria..."
+              ) : (
+                <table className="table table-striped">
+                  <thead>
+                    <tr>
+                      <td>Produto</td>
+                      <td>Quantidade</td>
+                      <td>Data do Cadastro</td>
+                      <td>Estoque</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {productsFornecedor.map((item: any) => (
+                      <tr key={item.id}>
+                        <td>{item.name}</td>
+                        <td>{item.quantity}</td>
+                        <td>{HandleOnlyDate(new Date(item.createdAt))}</td>
+                        <td>{item.estoque}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </Grid>
+          </Grid>
+        </Paper>
+      </div>
+    </>
+  );
+}
