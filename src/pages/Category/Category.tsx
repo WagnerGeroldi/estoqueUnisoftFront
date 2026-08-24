@@ -217,13 +217,15 @@ export function Category(this: any) {
     },
     {
       name: "Data do cadastro",
-      selector: (row: any) => HandleOnlyDate(new Date(row.createdAt)),
+      selector: (row: any) => row.createdAt, // ✅ valor bruto (string/Date)
       sortable: true,
+      cell: (row: any) => HandleOnlyDate(new Date(row.createdAt)), // ✅ JSX aqui
     },
     {
       name: "Última atualização",
-      selector: (row: any) => HandleOnlyDate(new Date(row.updatedAt)),
+      selector: (row: any) => row.updatedAt, // ✅ valor bruto
       sortable: true,
+      cell: (row: any) => HandleOnlyDate(new Date(row.updatedAt)), // ✅ JSX aqui
     },
     {
       cell: (row: any) => (
