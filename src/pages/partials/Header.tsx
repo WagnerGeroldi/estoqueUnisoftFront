@@ -106,22 +106,26 @@ export function Header(this: any) {
 
           <ListItem
             button
-            onClick={() =>              handleMenuClick(`/order/newDecreaseOrder/${user.id}`)            }
+            onClick={() => handleMenuClick(`/order/newDecreaseOrder/${user.id}`)}
           >
             <ListItemIcon>
               <ArrowDropDownCircleIcon />
             </ListItemIcon>
             <ListItemText>Baixar produtos</ListItemText>
           </ListItem>
-          <ListItem
-            button
-            onClick={() => handleMenuClick(`/certificateList`)}
-          >
-            <ListItemIcon>
-              <WorkspacePremiumIcon />
-            </ListItemIcon>
-            <ListItemText>Certificados Alunos</ListItemText>
-          </ListItem>
+
+          {user.email !== "teste@teste.com" && (
+            <ListItem
+              button
+              onClick={() => handleMenuClick(`/certificateList`)}
+            >
+              <ListItemIcon>
+                <WorkspacePremiumIcon />
+              </ListItemIcon>
+              <ListItemText>Certificados Alunos</ListItemText>
+            </ListItem>
+          )}
+
           <ListItem
             button
             onClick={() => handleMenuClick(`/report/${user.id}`)}
@@ -155,9 +159,9 @@ export function Header(this: any) {
           >
             <MenuIcon />
           </IconButton>
-       
+
           <div className="area-logo-text">
-          <img src={logo} alt="LOGO" width={55} />
+            <img src={logo} alt="LOGO" width={55} />
 
             <span className="unisoft">Rede Unisoft</span>
             <div>
